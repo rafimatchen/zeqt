@@ -23,14 +23,11 @@ def get_price() -> float:
     old = history.loc[at, "Close"]
     new = history["Close"].iloc[-1]
     value = float(investment) / old * new
-    return f"""
-    <p>
-    The price of
-    <input type="text" name="ticker" placeholder="ticker" value={ticker_name}>
-    on
-    <input type="date" name="at" value={at}>
-    was ${old:.2f}. Today, the price is ${new:.2f}. If you had invested
-    <input type="number" name="investment" min="0.0" placeholder="investment" value={investment}>
-    , you would now have ${value:.2f}.
-    </p>
-    """
+    return render_template(
+        "price_content.html",
+        ticker_name=ticker_name,
+        at=at,
+        new=new,
+        investment=investment,
+        value=value,
+    )
